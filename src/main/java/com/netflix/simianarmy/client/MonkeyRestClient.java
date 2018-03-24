@@ -70,6 +70,8 @@ public abstract class MonkeyRestClient {
     public JsonNode getJsonNodeFromUrl(String url) throws IOException {
         LOGGER.info(String.format("Getting Json response from url: %s", url));
         HttpGet request = new HttpGet(url);
+        request.setHeader("Access-Control-Allow-Origin", "*");
+        request.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
         request.setHeader("Accept", "application/json");
         HttpResponse response = httpClient.execute(request);
 

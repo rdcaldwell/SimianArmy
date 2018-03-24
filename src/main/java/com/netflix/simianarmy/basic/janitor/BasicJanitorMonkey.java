@@ -203,10 +203,14 @@ public class BasicJanitorMonkey extends JanitorMonkey {
             for (AbstractJanitor janitor : janitors) {
                 ResourceType resourceType = janitor.getResourceType();
                 appendSummary(message, "markings", resourceType, janitor.getMarkedResources(), janitor.getRegion());
-                appendSummary(message, "unmarkings", resourceType, janitor.getUnmarkedResources(), janitor.getRegion());
-                appendSummary(message, "cleanups", resourceType, janitor.getCleanedResources(), janitor.getRegion());
-                appendSummary(message, "cleanup failures", resourceType, janitor.getFailedToCleanResources(),
-                        janitor.getRegion());
+            }
+            String subject = getSummaryEmailSubject();
+            emailNotifier.sendEmail(summaryEmailTarget, subject, message.toString());
+        }
+    }
+
+    /*
+                    appendSummary(message, "markings", resourceType, janitor.getMarkedResources(), janitor.getRegion());
             }
             String subject = getSummaryEmailSubject();
             emailNotifier.sendEmail(summaryEmailTarget, subject, message.toString());
@@ -215,9 +219,12 @@ public class BasicJanitorMonkey extends JanitorMonkey {
 
     private void appendSummary(StringBuilder message, String summaryName,
             ResourceType resourceType, Collection<Resource> resources, String janitorRegion) {
-        message.append(String.format("Total %s for %s = %d in region %s<br/>",
-                summaryName, resourceType.name(), resources.size(), janitorRegion));
-        message.append(String.format("List: %s<br/>", printResources(resources)));
+        message.append(String.format("%s,", printResources(resources)));
+    */
+
+    private void appendSummary(StringBuilder message, String summaryName,
+            ResourceType resourceType, Collection<Resource> resources, String janitorRegion) {
+        message.append(String.format("%s,", printResources(resources)));
     }
 
     private String printResources(Collection<Resource> resources) {

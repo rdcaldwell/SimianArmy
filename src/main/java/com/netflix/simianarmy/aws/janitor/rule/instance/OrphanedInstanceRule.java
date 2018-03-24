@@ -112,12 +112,12 @@ public class OrphanedInstanceRule implements Rule {
             } else {
                 DateTime launchTime = new DateTime(resource.getLaunchTime().getTime());
                 DateTime now = new DateTime(calendar.now().getTimeInMillis());
-                if (now.isBefore(launchTime.plusDays(instanceAgeThreshold))) {
-                    LOGGER.info(String.format("The orphaned instance %s has not launched for more than %d days",
+                if (now.isBefore(launchTime.plusMinutes(instanceAgeThreshold))) {
+                    LOGGER.info(String.format("The orphaned instance %s has not launched for more than %d minutes",
                             resource.getId(), instanceAgeThreshold));
                     return true;
                 }
-                LOGGER.info(String.format("The orphaned instance %s has launched for more than %d days",
+                LOGGER.info(String.format("The orphaned instance %s has launched for more than %d minutes",
                         resource.getId(), instanceAgeThreshold));
                 if (resource.getExpectedTerminationTime() == null) {
                     int retentionDays = retentionDaysWithoutOwner;
