@@ -112,6 +112,9 @@ public class OrphanedInstanceRule implements Rule {
             } else {
                 DateTime launchTime = new DateTime(resource.getLaunchTime().getTime());
                 DateTime now = new DateTime(calendar.now().getTimeInMillis());
+                LOGGER.info(String.format("Now: %s", now));
+                LOGGER.info(String.format("Launch Time: %s", launchTime));
+                LOGGER.info(String.format("Launch Time + threshold: %s", launchTime.plusMinutes(instanceAgeThreshold)));
                 if (now.isBefore(launchTime.plusMinutes(instanceAgeThreshold))) {
                     LOGGER.info(String.format("The orphaned instance %s has not launched for more than %d minutes",
                             resource.getId(), instanceAgeThreshold));
