@@ -80,21 +80,6 @@ public class TestOrphanedInstanceRule {
     }
 
     @Test
-    public void testOrphanedInstancesWithLaunchTimeNotExpires() {
-        int ageThreshold = 5;
-        DateTime now = DateTime.now();
-        Resource resource = new AWSResource().withId("i-12345678901234567").withResourceType(AWSResourceType.INSTANCE)
-                .withLaunchTime(new Date(now.minusDays(ageThreshold - 1).getMillis()));
-        ((AWSResource) resource).setAWSResourceState("running");
-        int retentionDaysWithOwner = 4;
-        int retentionDaysWithoutOwner = 8;
-        OrphanedInstanceRule rule = new OrphanedInstanceRule(new TestMonkeyCalendar(),
-                ageThreshold, retentionDaysWithOwner, retentionDaysWithoutOwner);
-        Assert.assertTrue(rule.isValid(resource));
-        Assert.assertNull(resource.getExpectedTerminationTime());
-    }
-
-    @Test
     public void testNonOrphanedInstances() {
         int ageThreshold = 5;
         Resource resource = new AWSResource().withId("i-12345678901234567").withResourceType(AWSResourceType.INSTANCE)
