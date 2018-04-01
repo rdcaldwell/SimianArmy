@@ -124,11 +124,7 @@ public class JanitorMonkeyResource {
         }
     	baos.write("</body></html>".getBytes());
 
-        return Response.status(responseStatus)
-                    .entity(baos.toString("UTF-8"))
-                    .header("Access-Control-Allow-Origin", "*")
-                    .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-                    .build();
+        return Response.status(responseStatus).entity(baos.toString("UTF-8")).build();
     }
 
     /**
@@ -172,11 +168,7 @@ public class JanitorMonkeyResource {
         gen.writeEndObject();
         gen.close();
         LOGGER.info("entity content is '{}'", baos.toString("UTF-8"));
-        return Response.status(responseStatus)
-                .entity(baos.toString("UTF-8"))
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-                .build();
+        return Response.status(responseStatus).entity(baos.toString("UTF-8")).build();
     }
 
     /**
@@ -199,11 +191,7 @@ public class JanitorMonkeyResource {
         gen.writeEndObject();
         gen.writeEndArray();
         gen.close();
-        return Response.status(Response.Status.OK)
-            .header("Access-Control-Allow-Origin", "*")
-            .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-            .entity(baos.toString("UTF-8"))
-            .build();
+        return Response.status(Response.Status.OK).entity(baos.toString("UTF-8")).build();
     }
 
     private Response.Status optInResource(String resourceId, boolean optIn, String region, JsonGenerator gen)
